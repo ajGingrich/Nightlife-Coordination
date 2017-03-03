@@ -3,12 +3,20 @@ var path = require('path');
 var favicon = require('serve-favicon');
 //var logger = require('morgan');
 var cookieParser = require('cookie-parser');
+var mongoose = require('mongoose');
+var session = require('express-session');
+var passport = require('passport');
 var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
+require('dotenv').load();
+require('./app/config/passport')(passport);
+
+mongoose.connect(process.env.MONGO_URI);
+mongoose.Promise = global.Promise;
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -21,6 +29,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({secret:'MySecret'}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use('/', index);
 app.use('/users', users);
@@ -42,8 +53,6 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
-///test
 
 var port = process.env.PORT || 8080;
 app.listen(port,  function () {
