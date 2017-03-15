@@ -1,9 +1,12 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  background-color: lightblue;
-}
+  background-color: lightblue; }
+
+.btn-facebook {
+  margin-right: 20px; }
 
 a {
-  color: #00B7FF;
-}
+  color: #00B7FF; }
+
+/*# sourceMappingURL=stylesheet.css.map */
