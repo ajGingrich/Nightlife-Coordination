@@ -1,16 +1,23 @@
 var express = require('express');
 var passport = require('passport');
 var router = express.Router();
+var SearchHandler = require('../app/controllers/searchHandler.server');
+
 
 //home page
 router.get('/', function(req, res, next) {
-    res.render('index', { title: 'Express' });
+    res.render('index');
 });
 
 //profile
 router.get('/profile', isLoggedIn, function(req, res) {
     res.render('profile', { user: req.user });
 });
+
+var searchHandler = new SearchHandler();
+
+//search
+router.post('/search', searchHandler.search);
 
 //logout
 router.get('/logout', function(req, res) {

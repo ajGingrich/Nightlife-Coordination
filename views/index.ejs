@@ -3,8 +3,16 @@
   <% include partials/head.ejs %>
   <body>
     <% include partials/nav.ejs %>
-    <h1 class="title"><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+    <h1 class="title">Bar Locator</h1>
+    <p><i class="fa fa-beer fa-2x"></i> Find bars near you and RSVP <i class="fa fa-glass fa-2x"></i></p>
+    <div class="container">
+      <form id="barSearch" action="/search" method="post">
+        <div class="form-group">
+          <input type="text" class="form-control" name="location" placeholder="Enter your location">
+        </div>
+        <button type="submit" name="submitButton" class="btn btn-primary"><span>Go</span></button>
+      </form>
+    </div>
     <% include partials/footer.ejs %>
   </body>
 
