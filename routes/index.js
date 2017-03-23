@@ -2,6 +2,8 @@ var express = require('express');
 var passport = require('passport');
 var router = express.Router();
 var SearchHandler = require('../app/controllers/searchHandler.server');
+var searchHandler = new SearchHandler();
+global.businesses = null;
 
 
 //home page
@@ -14,7 +16,13 @@ router.get('/profile', isLoggedIn, function(req, res) {
     res.render('profile', { user: req.user });
 });
 
-var searchHandler = new SearchHandler();
+//clear
+router.get('/clear', function(req, res) {
+   global.businesses = null;
+   res.render('index');
+});
+
+
 
 //search
 router.post('/search', searchHandler.search);
@@ -46,7 +54,7 @@ router.get('/auth/twitter/callback', passport.authenticate('twitter', {
 router.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 
 router.get('/auth/google/callback', passport.authenticate('google', {
-    successRedirect: '/profile',
+    successRedirect: '/',
     failureRedirect: '/'
 }));
 
@@ -57,3 +65,4 @@ function isLoggedIn(req, res, next) {
         return next();
     res.redirect('/');
 }
+

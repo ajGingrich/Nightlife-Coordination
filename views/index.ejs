@@ -12,7 +12,14 @@
         </div>
         <button type="submit" name="submitButton" class="btn btn-primary"><span>Go</span></button>
       </form>
+      <form action="/clear">
+        <button type="submit" class="btn btn-danger"><span>Clear</span></button>
+      </form>
+
     </div>
+    <% if (businesses) { %>
+        <p>There are some businesses</p>
+    <% } %>
     <% include partials/footer.ejs %>
   </body>
 

@@ -27,12 +27,11 @@ function searchHandler () {
 
         request(options, function (error, response, body) {
             if (error) throw new Error(error);
-            //var test = body.businesses;
-            //console.log(test);
-            var bodyObj = JSON.parse(body);
 
-            console.log(bodyObj.businesses[0].name);
-            res.render('index'/*, { businesses: body.businesses }*/);
+            var bodyObj = JSON.parse(body);
+            global.businesses = bodyObj.businesses;
+
+            res.render('index');
         });
     }
 
