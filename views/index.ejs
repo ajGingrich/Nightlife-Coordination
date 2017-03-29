@@ -18,7 +18,18 @@
 
     </div>
     <% if (businesses) { %>
-        <p>There are some businesses</p>
+      <% for (var i=0; i< businesses.name.length; i++) { %>
+        <p>
+          <a href="<%- businesses.url[i] %>" target="_blank"><%- businesses.name[i] %></a>
+          <span><%- businesses.attending[i].users.length-1%></span>
+          <form action="/attend/<%- businesses._id %>/<%- businesses.attending[i]._id %>">
+            <button type="submit" class="btn"><span>Attend</span></button>
+          </form>
+          <form action="/remove/<%- businesses._id %>/<%- businesses.attending[i]._id %>">
+            <button type="submit" class="btn"><span>Don't Go</span></button>
+          </form>
+        </p>
+      <% } %>
     <% } %>
     <% include partials/footer.ejs %>
   </body>
