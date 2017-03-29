@@ -6,8 +6,8 @@
     <h4>Your Profile</h4>
     <% if (user.facebook.id != null) { %>
     <h2 class="fa fa-facebook"> Facebook</h2><br>
-    <img src="https://avatars.io/facebook/<%= user.facebook.email %>" class="img-circle"><br>
-    <strong>email</strong>: <%= user.facebook.email %><br>
+    <img src="https://avatars.io/facebook/<%= user.facebook.username %>" class="img-circle"><br>
+    <strong>username</strong>: <%= user.facebook.username %><br>
     <strong>name</strong>: <%= user.facebook.name %>
     <% } %>
 
