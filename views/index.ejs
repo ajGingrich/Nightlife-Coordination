@@ -4,32 +4,51 @@
   <body>
     <% include partials/nav.ejs %>
     <h1 class="title">Bar Locator</h1>
-    <p><i class="fa fa-beer fa-2x"></i> Find bars near you and RSVP <i class="fa fa-glass fa-2x"></i></p>
+    <p id="faHeader"><i class="fa fa-beer fa-4x"></i> Find bars near you and RSVP <i class="fa fa-glass fa-4x"></i></p>
     <div class="container">
       <form id="barSearch" action="/search" method="post">
-        <div class="form-group">
+        <div class="form-inline">
           <input type="text" class="form-control" name="location" placeholder="Enter your location">
+          <button type="submit" name="submitButton" class="btn btn-primary"><span>Go</span></button>
+          <button type="submit" class="btn btn-danger" formaction="/clear" formmethod="get"><span>Clear</span></button>
         </div>
-        <button type="submit" name="submitButton" class="btn btn-primary"><span>Go</span></button>
       </form>
-      <form action="/clear">
-        <button type="submit" class="btn btn-danger"><span>Clear</span></button>
-      </form>
-
     </div>
     <% if (businesses) { %>
       <% for (var i=0; i< businesses.name.length; i++) { %>
-        <p>
-          <a href="<%- businesses.url[i] %>" target="_blank"><%- businesses.name[i] %></a>
-          <span><%- businesses.attending[i].users.length-1%></span>
-          <form action="/attend/<%- businesses._id %>/<%- businesses.attending[i]._id %>">
-            <button type="submit" class="btn"><span>Attend</span></button>
-          </form>
-          <form action="/remove/<%- businesses._id %>/<%- businesses.attending[i]._id %>">
-            <button type="submit" class="btn"><span>Don't Go</span></button>
-          </form>
-        </p>
+        <div class="container-fluid busContainer">
+          <div class="form-inline">
+            <a href="<%- businesses.url[i] %>" target="_blank">
+              <h3><%- businesses.name[i] %></h3>
+              <img class="busThumbnail" src="<%- businesses.img[i] %>"/>
+            </a>
+            <span class="numPeople"><%- businesses.attending[i].users.length-1%> Attending</span>
+            <!--Add buttons depending on if user is going or not. Check based on their appropriate userID-->
+            <% if (user != undefined) { %>
+              <% if (businesses.attending[i].users.indexOf(user.id) == -1) { %>
+                <form class="btnAttend" action="/attend/<%- businesses._id %>/<%- businesses.attending[i]._id %>">
+                  <button type="submit" class="btn btn-primary"><span>Attend</span></button>
+                </form>
+                <% } else { %>
+                  <form class="btnRemove" action="/remove/<%- businesses._id %>/<%- businesses.attending[i]._id %>">
+                    <button type="submit" class="btn btn-danger"><span>Don't Go</span></button>
+                  </form>
+              <% } %>
+
+            <!--Default for if user isn't logged-in -->
+              <% } else { %>
+                  <form class="btnAttend" action="/attend/<%- businesses._id %>/<%- businesses.attending[i]._id %>">
+                    <button type="submit" class="btn btn-primary"><span>Attend</span></button>
+                  </form>
+              <% } %>
+          </div>
+        </div>
       <% } %>
+    <% } %>
+    <% if (loggedOut) { %>
+    <script>
+        alert("You need to be logged in to RSVP!");
+    </script>
     <% } %>
     <% include partials/footer.ejs %>
   </body>

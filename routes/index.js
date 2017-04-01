@@ -4,11 +4,15 @@ var router = express.Router();
 var SearchHandler = require('../app/controllers/searchHandler.server');
 var searchHandler = new SearchHandler();
 global.businesses = null;
-
+global.loggedOut = false;
 
 //home page
 router.get('/', function(req, res, next) {
-    res.render('index');
+    console.log(req.user);
+    res.render('index', {
+        loggedOut: false,
+        user: req.user
+    });
 });
 
 //profile
@@ -19,10 +23,11 @@ router.get('/profile', isLoggedIn, function(req, res) {
 //clear
 router.get('/clear', function(req, res) {
    global.businesses = null;
-   res.render('index');
+   res.render('index', {
+       loggedOut: false,
+       user: req.user
+   });
 });
-
-
 
 //search
 router.post('/search', searchHandler.search);
@@ -70,6 +75,7 @@ module.exports = router;
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated())
         return next();
+    //global.loggedOut = true;
     res.redirect('/');
 }
 

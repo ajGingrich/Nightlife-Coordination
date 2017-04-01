@@ -4,6 +4,8 @@ var Queries = require('../models/queries.js');
 
 function searchHandler () {
 
+    var numResults = 10;
+
     var request = require("request");
 
     this.search = function(req, res) {
@@ -34,7 +36,7 @@ function searchHandler () {
             var imgUrls = [];
             var attendingArray = [];
 
-            for (var i=0; i<10; i++) {
+            for (var i=0; i<=numResults; i++) {
                 names.push(businesses[i].name);
                 urls.push(businesses[i].url);
                 imgUrls.push(businesses[i].image_url);
@@ -61,12 +63,12 @@ function searchHandler () {
                         console.log('there isnt a query');
 
                         global.businesses = newQuery;
-                        res.render('index');
+                        res.render('index', {user: req.user});
                     });
                 }
                 else {
                     global.businesses = data[0];
-                    res.render('index');
+                    res.render('index', {user: req.user});
                 }
             });
         });
@@ -76,8 +78,6 @@ function searchHandler () {
         var queryId = req.params.id;
         var attendingId = req.params.subId;
 
-        //console.log(req.user.id);
-        //make sure user isn't already going (not necessary because change button to don't attend
         if (req.user) {
 
             console.log(req.user);
@@ -86,12 +86,14 @@ function searchHandler () {
                 function(err, doc) {
                     if (err) throw err;
                     global.businesses = doc;
-                    res.render('index');
+                    global.loggedOut = false;
+                    res.render('index', {user: req.user});
                 } );
         }
         else {
             console.log("gotta be logged in bud");
-            res.render('index');
+            global.loggedOut = true;
+            res.render('index', {user: req.user});
         }
     };
 
@@ -100,18 +102,18 @@ function searchHandler () {
         var attendingId = req.params.subId;
 
         if (req.user) {
-            console.log(req.user);
-
             Queries.findOneAndUpdate({ "_id": queryId, "attending._id": attendingId }, {$pull: {'attending.$.users': req.user.id}}, {new :true},
                 function(err, doc) {
                     if (err) throw err;
                     global.businesses = doc;
-                    res.render('index');
+                    global.loggedOut = false;
+                    res.render('index', {user: req.user});
                 });
         }
         else {
             console.log("gotta be logged in bud");
-            res.render('index');
+            global.loggedOut = true;
+            res.render('index', {user: req.user});
         }
     }
 

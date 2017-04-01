@@ -13,10 +13,12 @@
 body {
   font-family: 'Roboto', sans-serif;
   font-size: 16px;
-  margin: 0;
   padding: 0;
   text-align: center;
-  background-color: #e3e8ef; }
+  background: url(http://cdn.wallpapersafari.com/37/54/kToz0c.jpg);
+  min-height: 400px;
+  margin-bottom: 100px;
+  clear: both; }
 
 /****** Nav Styling ******/
 nav {
@@ -31,7 +33,7 @@ div h4 {
   margin: 20px 0 0 20px; }
 
 .nav-container {
-  background-color: #a7b5ba; }
+  background: url(http://wallpapercave.com/wp/fto5lYX.jpg); }
 
 nav p {
   margin: 16px 0 5px 0;
@@ -80,9 +82,37 @@ nav a ~ p {
   display: inline;
   color: #010a19; }
 
+/****** Body Styling ******/
+#barSearch {
+  margin-bottom: 15px; }
+
+#faHeader {
+  margin-bottom: 20px; }
+
+p i:first-child {
+  margin-right: 15px; }
+
+p i:nth-child(2) {
+  margin: 0 0 0 5px;
+  vertical-align: text-bottom; }
+
+.busThumbnail {
+  border-radius: 5px;
+  height: 250px;
+  width: auto; }
+
+.numPeople {
+  padding: 4px 4px 4px 4px;
+  border: 2px solid black;
+  border-radius: 2px;
+  margin: 0 35px 0 40px; }
+
+.busContainer form {
+  display: inline; }
+
 /****** Footer Styling ******/
 footer {
-  background-color: #a7b5ba; }
+  background: url(http://wallpapercave.com/wp/fto5lYX.jpg); }
 
 footer a {
   color: black; }
@@ -91,15 +121,18 @@ footer h5 {
   float: left;
   margin: 10px 0 0 20px; }
 
+footer h5:nth-child(2) {
+  clear: both; }
+
 footer p {
   float: right;
   margin-right: 20px; }
 
-footer p:nth-child(2) {
-  margin-top: 10px; }
-
 footer p:nth-child(3) {
+  margin-top: -15px; }
+
+footer p:nth-child(4) {
   clear: both;
-  margin-top: -5px; }
+  margin-top: -10px; }
 
 /*# sourceMappingURL=stylesheet.css.map */
