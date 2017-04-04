@@ -1,12 +1,12 @@
 # Nightlife Coordination App
 
-Alt- Objective 
+Objective 
 ------
 
-Build a full stack Javascript app for freeCodeCamp Basejump Curriculum. 
-The full description is here: [https://www.freecodecamp.com/challenges/build-a-nightlife-coordination-app] (https://www.freecodecamp.com/challenges/build-a-nightlife-coordination-app)
+Build a full stack Javascript app for  the freeCodeCamp Basejump Curriculum. 
+The full description is here: https://www.freecodecamp.com/challenges/build-a-nightlife-coordination-app
 
-Alt- User Stories
+User Stories
 ------
 
 * As an unauthenticated user, I can view all bars in my area.
